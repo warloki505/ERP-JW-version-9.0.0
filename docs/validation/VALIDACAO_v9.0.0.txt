@@ -1,0 +1,64 @@
+================================================================================
+VALIDAÇÃO — ERP JW Finance v9.0.0
+Fechamento da Fase 3: Logout Centralizado + Sync Estável
+Data: 2026-03-26
+Instrução: marcar [x] após validar cada item. Não fazer release sem 100% marcado.
+================================================================================
+
+--------------------------------------------------------------------------------
+BLOCO 1 — LOGOUT E SESSÃO
+--------------------------------------------------------------------------------
+[ ] 1.1  Clicar em Sair no Dashboard redireciona para index.html
+[ ] 1.2  Clicar em Sair em Perfil redireciona para index.html
+[ ] 1.3  Clicar em Sair em Histórico redireciona para index.html
+[ ] 1.4  Clicar em Sair em Gráficos redireciona para index.html
+[ ] 1.5  Clicar em Sair em Metas redireciona para index.html
+[ ] 1.6  Clicar em Sair em Gerenciadores redireciona para index.html
+[ ] 1.7  Clicar em Sair em Consolidado redireciona para index.html
+[ ] 1.8  Após logout, atualizar a página mantém o usuário fora do app
+[ ] 1.9  Após logout, `gf_erp_firebase_rest_session` não existe no localStorage
+[ ] 1.10 Após logout, `gf_erp_logged` está ausente ou `false`
+[ ] 1.11 Após logout, `gf_erp_current_userId` não existe no localStorage
+
+--------------------------------------------------------------------------------
+BLOCO 2 — REGRESSÃO FUNCIONAL DA FASE 3
+--------------------------------------------------------------------------------
+[ ] 2.1  Login com e-mail/senha válidos redireciona para dashboard.html
+[ ] 2.2  Sync badge exibe `Sync: OK` após login online
+[ ] 2.3  Novo lançamento online muda badge para pendente e volta para OK
+[ ] 2.4  Soft delete continua ocultando registros excluídos em todas as telas
+[ ] 2.5  Gráficos continuam ignorando `deletedAt`
+[ ] 2.6  Consolidado continua respeitando o filtro de período
+[ ] 2.7  Gerenciadores continuam sincronizando categorias e bancos
+[ ] 2.8  Perfil continua exportando/importando backup sem erro
+
+--------------------------------------------------------------------------------
+BLOCO 3 — PWA / CACHE
+--------------------------------------------------------------------------------
+[ ] 3.1  CACHE_NAME no sw.js = erp-jw-finance-v9.0.0
+[ ] 3.2  Após novo deploy, navegador recebe os arquivos atualizados
+
+--------------------------------------------------------------------------------
+BLOCO 4 — SEGURANÇA OPERACIONAL
+--------------------------------------------------------------------------------
+[ ] 4.1  Logout não apaga dados financeiros do usuário
+[ ] 4.2  Logout não corrompe fila de sync existente
+[ ] 4.3  Re-login do mesmo usuário restaura os dados corretamente
+[ ] 4.4  Login de outro usuário mantém isolamento por namespace
+
+================================================================================
+VERSÃO TESTADA: 9.0.0
+STATUS ESPERADO: Fase 3 encerrada e liberada para operação comercial
+================================================================================
+
+
+Ajustes complementares validados na v9.0.0:
+- Logout centralizado mantido e captura global de logout ativada.
+- Sessão Firebase REST passa a renovar token automaticamente antes do vencimento e em respostas 401.
+- Test runner compatível com Core.money.format/Core.money.parse.
+- Redirect pós-login via location.replace() para reduzir inconsistência de histórico.
+
+[PATCH COMPLEMENTAR 9.0.0]
+- Exposição de restoreSessionFromRefreshToken em window.firebaseApi para retry real em 401/UNAUTHENTICATED.
+- Adição de Core.money como alias compatível para tests.js e chamadas legadas.
+- Cabeçalho de js/sync/sync-service.js alinhado para versão 9.0.0 e data 2026-03-26.
