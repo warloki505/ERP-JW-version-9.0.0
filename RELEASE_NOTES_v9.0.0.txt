@@ -1,0 +1,56 @@
+ERP JW Finance v9.0.0 — Encerramento da Fase 3
+Data: 2026-03-26
+
+ENTREGAS PRINCIPAIS
+- logout centralizado em js/core/core.js via Core.auth.logout()
+- bind padronizado do botão Sair em todas as telas internas
+- captura global defensiva do #logoutBtn para telas sem handler local ou com handler divergente
+- remoção explícita de gf_erp_firebase_rest_session no logout
+- redirecionamento com location.replace('index.html') para evitar retorno automático via histórico
+- renovação do cache PWA com CACHE_NAME v9.0.0
+- documentação final da Fase 3 alinhada para operação comercial
+
+ARQUIVOS ALTERADOS
+- js/core/core.js
+- js/core/constants.js
+- js/core/config.js
+- js/core/firebase-init.js
+- js/features/charts.js
+- js/features/consolidado.js
+- js/features/dashboard.js
+- js/features/gerenciadores.js
+- js/features/historico.js
+- js/features/metas.js
+- js/features/perfil.js
+- sw.js
+- README.md
+- docs/VERSION.md
+- docs/INDEX.md
+- docs/changelog/CHANGELOG.md
+- docs/technical/DIARIO_TECNICO.md
+- docs/technical/FASE_3_SYNC_MULTI_DEVICE.md
+
+ARQUIVOS NOVOS
+- RELEASE_NOTES_v9.0.0.txt
+- docs/validation/VALIDACAO_v9.0.0.txt
+
+OBSERVAÇÕES
+- Não há mudança de schema do localStorage.
+- Não há alteração nas fórmulas financeiras.
+- Não há alteração na estratégia de sincronização remota.
+- O objetivo desta versão é encerrar a Fase 3 com estabilidade operacional em produção.
+
+
+PATCH COMPLEMENTAR v9.0.0 — Ajustes críticos pós-curadoria
+- firebase-init.js: correção de getIdToken() com leitura dinâmica da sessão armazenada e renovação preventiva por refresh token.
+- firebase-init.js: exposição de restoreSessionFromRefreshToken() via window.firebaseApi para recuperação automática da sessão REST.
+- sync-service.js: VERSION alinhada para 9.0.0.
+- sync-service.js: retry automático imediato em erros 401/UNAUTHENTICATED com renovação de token antes do backoff.
+- core.js: ativação da captura global de logout (installLogoutCapture).
+- core.js: adição de alias Core.money para compatibilidade com tests/index.html.
+- index.js: redirects pós-login alterados para location.replace('dashboard.html') para evitar retorno indevido via histórico.
+
+[PATCH COMPLEMENTAR 9.0.0]
+- Exposição de restoreSessionFromRefreshToken em window.firebaseApi para retry real em 401/UNAUTHENTICATED.
+- Adição de Core.money como alias compatível para tests.js e chamadas legadas.
+- Cabeçalho de js/sync/sync-service.js alinhado para versão 9.0.0 e data 2026-03-26.
